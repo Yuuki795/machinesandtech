@@ -1,0 +1,4 @@
+name: Machines and Tech
+version: '${version}'
+main: yuuki.machinesandtech.machinesandtech
+api-version: 1.19

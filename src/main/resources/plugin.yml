@@ -1,0 +1,9 @@
+name: MachinesandTech
+version: '${version}'
+main: yuuki.machinesandtech.machinesandtech
+api-version: 1.19
+depend: [NBTAPI]
+commands:
+  givetest:
+    description: Give test item.
+    usage: /<command>

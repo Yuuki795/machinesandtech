@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="machinesandtech.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/machinesandtech_main_jar</output-path>
+    <root id="archive" name="machinesandtech.main.jar">
+      <element id="module-output" name="machinesandtech.main" />
+    </root>
+  </artifact>
+</component>
