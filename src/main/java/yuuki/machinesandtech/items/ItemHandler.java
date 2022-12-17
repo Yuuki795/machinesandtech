@@ -27,6 +27,7 @@ public class ItemHandler {
     public static ItemStack bloodDiamond;
     public static ItemStack bloodDiamondSword;
     private static ItemStack bloodDiamondPickaxe;
+    private static ItemStack bloodDiamondAxe;
 
 
     public static void init(){
@@ -38,6 +39,7 @@ public class ItemHandler {
         createBloodDiamond();
         createBloodDiamondSword();
         createBloodDiamondPickaxe();
+        createBloodDiamondAxe();
     }
 
     /*private static void createVibrantCrystal(){
@@ -270,6 +272,52 @@ public class ItemHandler {
         shapedRecipe.setIngredient('S', Material.STICK);
         shapedRecipe.setIngredient('B', bloodDiamond);
         Bukkit.getServer().addRecipe(shapedRecipe);
+    }
+    static void createBloodDiamondAxe(){
+        ItemStack item = new ItemStack(Material.DIAMOND_AXE, 1);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.setDisplayName(ChatColor.WHITE + "Blood Diamond Axe");
+
+        meta.setCustomModelData(24645);
+
+        meta.addEnchant(Enchantment.LUCK, 1, false);
+        meta.addEnchant(Enchantment.DURABILITY, 3, false);
+        meta.addEnchant(Enchantment.DIG_SPEED, 5, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        AttributeModifier modifier1 = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", 5.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+
+        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier1);
+
+        List<String> lore = new ArrayList<String>();
+        lore.add(ChatColor.GOLD + "Ability Uses Left: 0");
+        meta.setLore(lore);
+
+        item.setItemMeta(meta);
+
+        NBT.modify(item, nbt -> { nbt.setInteger("Customfunc", 28); });
+        NBT.modify(item, nbt -> { nbt.setInteger("Customfunc1", 1); });
+
+        bloodDiamondAxe = item;
+
+        ShapedRecipe shapedRecipe = new ShapedRecipe(NamespacedKey.minecraft("blooddiamondpickaxe"), item);
+        shapedRecipe.shape(" " + "B" + "B",
+                           " " + "S" + "B",
+                           " " + "S" + " ");
+        shapedRecipe.setIngredient('S', Material.STICK);
+        shapedRecipe.setIngredient('B', bloodDiamond);
+
+        //backwards axe pattern
+        ShapedRecipe shapedRecipe2 = new ShapedRecipe(NamespacedKey.minecraft("blooddiamondpickaxe"), item);
+        shapedRecipe.shape("B" + "B" + " ",
+                           "B" + "S" + " ",
+                           " " + "S" + " ");
+        shapedRecipe.setIngredient('S', Material.STICK);
+        shapedRecipe.setIngredient('B', bloodDiamond);
+
+        Bukkit.getServer().addRecipe(shapedRecipe);
+        Bukkit.getServer().addRecipe(shapedRecipe2);
     }
 }
 

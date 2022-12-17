@@ -1,7 +1,6 @@
 package yuuki.machinesandtech.events;
 
 import de.tr7zw.changeme.nbtapi.NBT;
-import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -11,10 +10,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.potion.PotionType;
 
 import java.util.Random;
 
@@ -42,7 +39,7 @@ public class PlayerEvents implements Listener {
                             e.getPlayer().setHealth(e.getPlayer().getHealth() - 10);
                             e.getPlayer().getInventory().addItem(bloodOrb);
                         }
-                    break;
+                        break;
                     case 26:
                         if(NBT.get(e.getItem(), nbt -> nbt.getInteger("Kills")) > 0)
                         {
@@ -54,7 +51,32 @@ public class PlayerEvents implements Listener {
                             e.getPlayer().sendMessage(ChatColor.RED + "You have no kills! So the sword used your own blood!");
                             e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 200, 1, true, false, false));
                         }
-                    break;
+                        break;
+                    case 27:
+                        if(NBT.get(e.getItem(), nbt -> nbt.getInteger("Kills")) > 0)
+                        {
+                            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 400, 2, true, false, false));
+                            NBT.modify(e.getItem(), nbt -> { nbt.setInteger("Kills", NBT.get(e.getItem(), nbti -> nbti.getInteger("Kills")) + -1); });
+                        }
+                        else {
+                            e.getPlayer().setHealth(e.getPlayer().getHealth() - 10);
+                            e.getPlayer().sendMessage(ChatColor.RED + "You have no kills! So the pickaxe used your own blood!");
+                            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 400, 2, true, false, false));
+                        }
+                        break;
+                    case 28:
+                        if(NBT.get(e.getItem(), nbt -> nbt.getInteger("Kills")) > 0)
+                        {
+                            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 200, 1, true, false, false));
+                            NBT.modify(e.getItem(), nbt -> { nbt.setInteger("Kills", NBT.get(e.getItem(), nbti -> nbti.getInteger("Kills")) + -1); });
+                        }
+                        else {
+                            e.getPlayer().setHealth(e.getPlayer().getHealth() - 10);
+                            e.getPlayer().sendMessage(ChatColor.RED + "You have no kills! So the axe used your own blood!");
+                            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 200, 2, true, false, false));
+                        }
+                        break;
+
                 }
             }
         }
